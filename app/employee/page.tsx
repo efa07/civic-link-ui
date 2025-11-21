@@ -1,19 +1,29 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { StatCard } from "@/components/stat-card"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Clock, CheckCircle2, Trophy, DollarSign, Star, Bell, Timer, Play, Square } from "lucide-react"
-import { Progress } from "@/components/ui/progress"
-import { Checkbox } from "@/components/ui/checkbox"
-import { AIChatWidget } from "@/components/ai-chat-widget"
+import { useState } from "react";
+import { StatCard } from "@/components/stat-card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Clock,
+  CheckCircle2,
+  Trophy,
+  DollarSign,
+  Star,
+  Bell,
+  Timer,
+  Play,
+  Square,
+} from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Checkbox } from "@/components/ui/checkbox";
+import { AIChatWidget } from "@/components/ai-chat-widget";
 
 const tasks = [
   {
     id: 1,
-    title: "Process ID Renewal - Ahmed Hassan",
+    title: "Process ID Renewal - አብነት ተፈራ (Abnet Tefera)",
     priority: "high",
     deadline: "2 hours",
     completed: false,
@@ -21,7 +31,7 @@ const tasks = [
   },
   {
     id: 2,
-    title: "Verify Birth Certificate - Fatima Ali",
+    title: "Verify Birth Certificate - ሜሮን ጥላሁን (Mihret Tilahun)",
     priority: "medium",
     deadline: "4 hours",
     completed: false,
@@ -29,7 +39,7 @@ const tasks = [
   },
   {
     id: 3,
-    title: "Review Tax Payment - Omar Khalil",
+    title: "Review Tax Payment - ዮናስ ከበደ (Yonas Kebede)",
     priority: "high",
     deadline: "1 hour",
     completed: false,
@@ -37,33 +47,56 @@ const tasks = [
   },
   {
     id: 4,
-    title: "Issue Business License - Nadia Samir",
+    title: "Issue Business License - ሰላማዊት ሞላ (Selamawit Molla)",
     priority: "low",
     deadline: "6 hours",
     completed: false,
     estimatedTime: "1h",
   },
-]
+];
 
 const notifications = [
-  { id: 1, message: "New task assigned: Document Verification", time: "5 min ago" },
+  {
+    id: 1,
+    message: "New task assigned: Document Verification",
+    time: "5 min ago",
+  },
   { id: 2, message: "Citizen feedback received: 5 stars", time: "15 min ago" },
   { id: 3, message: "Deadline approaching for Task #1024", time: "30 min ago" },
-]
+];
 
 const ratings = [
-  { service: "ID Renewal", rating: 5, feedback: "Very professional and quick", date: "2 hours ago" },
-  { service: "Certificate Verification", rating: 4, feedback: "Good service", date: "1 day ago" },
-  { service: "Tax Filing", rating: 5, feedback: "Excellent help!", date: "2 days ago" },
-]
+  {
+    service: "ID Renewal",
+    rating: 5,
+    feedback: "Very professional and quick",
+    date: "2 hours ago",
+  },
+  {
+    service: "Certificate Verification",
+    rating: 4,
+    feedback: "Good service",
+    date: "1 day ago",
+  },
+  {
+    service: "Tax Filing",
+    rating: 5,
+    feedback: "Excellent help!",
+    date: "2 days ago",
+  },
+];
 
 export default function EmployeeDashboard() {
-  const [isClockedIn, setIsClockedIn] = useState(true)
-  const [taskList, setTaskList] = useState(tasks)
+  const [isClockedIn, setIsClockedIn] = useState(true);
+  const [taskList, setTaskList] = useState(tasks);
 
   const toggleTask = (id: number) => {
-    setTaskList(taskList.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)))
-  }
+    setTaskList(
+      taskList.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -71,7 +104,9 @@ export default function EmployeeDashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold">Employee Dashboard</h1>
-            <p className="text-muted-foreground mt-1">Welcome back, Sarah Ahmed</p>
+            <p className="text-muted-foreground mt-1">
+              Welcome back, ጽጌረዳ ገበየሁ (Tsigereda Gebeyehu)
+            </p>
           </div>
           <Button
             size="lg"
@@ -94,15 +129,30 @@ export default function EmployeeDashboard() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <StatCard title="Today's Hours" value="7h 45m" icon={Clock} description="Target: 8 hours" />
+          <StatCard
+            title="Today's Hours"
+            value="7h 45m"
+            icon={Clock}
+            description="Target: 8 hours"
+          />
           <StatCard
             title="Tasks Completed"
             value="12"
             icon={CheckCircle2}
             trend={{ value: "3 pending", isPositive: true }}
           />
-          <StatCard title="Performance Points" value="2,450" icon={Trophy} description="Rank #1 this month" />
-          <StatCard title="Extra Hours This Week" value="12h" icon={DollarSign} description="Reward: $180" />
+          <StatCard
+            title="Performance Points"
+            value="2,450"
+            icon={Trophy}
+            description="Rank #1 this month"
+          />
+          <StatCard
+            title="Extra Hours This Week"
+            value="12h"
+            icon={DollarSign}
+            description="Reward: $180"
+          />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -121,10 +171,20 @@ export default function EmployeeDashboard() {
                       key={task.id}
                       className="flex items-start gap-3 p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
                     >
-                      <Checkbox checked={task.completed} onCheckedChange={() => toggleTask(task.id)} className="mt-1" />
+                      <Checkbox
+                        checked={task.completed}
+                        onCheckedChange={() => toggleTask(task.id)}
+                        className="mt-1"
+                      />
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <p className={`font-medium ${task.completed ? "line-through text-muted-foreground" : ""}`}>
+                          <p
+                            className={`font-medium ${
+                              task.completed
+                                ? "line-through text-muted-foreground"
+                                : ""
+                            }`}
+                          >
                             {task.title}
                           </p>
                           <Badge
@@ -132,8 +192,8 @@ export default function EmployeeDashboard() {
                               task.priority === "high"
                                 ? "destructive"
                                 : task.priority === "medium"
-                                  ? "default"
-                                  : "secondary"
+                                ? "default"
+                                : "secondary"
                             }
                           >
                             {task.priority}
@@ -169,19 +229,29 @@ export default function EmployeeDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {ratings.map((rating, index) => (
-                    <div key={index} className="border-b border-border pb-4 last:border-0">
+                    <div
+                      key={index}
+                      className="border-b border-border pb-4 last:border-0"
+                    >
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <p className="font-medium">{rating.service}</p>
-                          <p className="text-sm text-muted-foreground">{rating.date}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {rating.date}
+                          </p>
                         </div>
                         <div className="flex items-center gap-1">
                           {Array.from({ length: rating.rating }).map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                            <Star
+                              key={i}
+                              className="h-4 w-4 fill-primary text-primary"
+                            />
                           ))}
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground">{rating.feedback}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {rating.feedback}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -218,7 +288,9 @@ export default function EmployeeDashboard() {
                     <span className="font-medium">9:00 AM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected Clock Out</span>
+                    <span className="text-muted-foreground">
+                      Expected Clock Out
+                    </span>
                     <span className="font-medium">5:15 PM</span>
                   </div>
                 </div>
@@ -235,7 +307,9 @@ export default function EmployeeDashboard() {
               <CardContent className="space-y-3">
                 <div className="p-3 bg-primary/10 rounded-lg">
                   <p className="text-2xl font-bold text-primary">12h</p>
-                  <p className="text-sm text-muted-foreground">Extra hours this week</p>
+                  <p className="text-sm text-muted-foreground">
+                    Extra hours this week
+                  </p>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
@@ -243,11 +317,15 @@ export default function EmployeeDashboard() {
                     <span className="font-medium">$15/hr</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">This Week Earnings</span>
+                    <span className="text-muted-foreground">
+                      This Week Earnings
+                    </span>
                     <span className="font-bold text-primary">$180</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">This Month Total</span>
+                    <span className="text-muted-foreground">
+                      This Month Total
+                    </span>
                     <span className="font-bold">$720</span>
                   </div>
                 </div>
@@ -263,7 +341,9 @@ export default function EmployeeDashboard() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="text-center p-4">
-                  <div className="text-4xl font-bold text-primary mb-2">95%</div>
+                  <div className="text-4xl font-bold text-primary mb-2">
+                    95%
+                  </div>
                   <p className="text-sm text-muted-foreground">Overall Score</p>
                 </div>
                 <div className="space-y-3">
@@ -304,7 +384,9 @@ export default function EmployeeDashboard() {
                   {notifications.map((notif) => (
                     <div key={notif.id} className="p-3 bg-muted rounded-lg">
                       <p className="text-sm font-medium">{notif.message}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {notif.time}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -315,5 +397,5 @@ export default function EmployeeDashboard() {
       </div>
       <AIChatWidget />
     </div>
-  )
+  );
 }
