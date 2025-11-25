@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js build output
+.next/
+out/
+
+# Production
+build/
+
+# Environment variables
+.env*
+!.env.example
+
+# Log files
+logs/
+*.log
+*.log.*
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
+# Editor cruft
+.vscode/
+.idea/
+*.swp
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# Sentry / Next telemetry
+.next/trace
+.next/cache
+
+# Turbo (if using Turbopack)
+.turbo/
+
+# Optional: Docker junk
+docker-data/

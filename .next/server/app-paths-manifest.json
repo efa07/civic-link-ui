@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/services/page": "app/admin/services/page.js",
+  "/citizen/page": "app/citizen/page.js",
+  "/citizen/profile/page": "app/citizen/profile/page.js",
+  "/citizen/services/[id]/page": "app/citizen/services/[id]/page.js",
+  "/citizen/services/page": "app/citizen/services/page.js",
+  "/employee/page": "app/employee/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/tracking/[id]/page": "app/tracking/[id]/page.js",
+  "/worker/[id]/page": "app/worker/[id]/page.js"
+}

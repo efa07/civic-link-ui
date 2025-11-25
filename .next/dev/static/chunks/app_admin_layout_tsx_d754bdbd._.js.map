@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/x/civic-link-ui/app/admin/layout.tsx"],"sourcesContent":["\"use client\";\n\nimport type React from \"react\";\nimport { AdminSidebar } from \"@/components/admin-sidebar\";\nimport { useState } from \"react\";\n\nexport default function AdminLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n\n  return (\n    <div className=\"min-h-screen bg-background\">\n\n      <main\n        className=\"p-6 transition-all duration-300\"\n      >\n        {children}\n      </main>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;AAAA;;AAMe,SAAS,YAAY,EAClC,QAAQ,EAGT;IAEC,qBACE,4TAAC;QAAI,WAAU;kBAEb,cAAA,4TAAC;YACC,WAAU;sBAET;;;;;;;;;;;AAIT;KAhBwB"}}]
+}

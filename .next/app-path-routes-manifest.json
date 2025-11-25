@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/page": "/admin",
+  "/admin/services/page": "/admin/services",
+  "/citizen/page": "/citizen",
+  "/citizen/profile/page": "/citizen/profile",
+  "/citizen/services/[id]/page": "/citizen/services/[id]",
+  "/citizen/services/page": "/citizen/services",
+  "/employee/page": "/employee",
+  "/login/page": "/login",
+  "/page": "/",
+  "/tracking/[id]/page": "/tracking/[id]",
+  "/worker/[id]/page": "/worker/[id]"
+}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -30,8 +30,17 @@ export function AIChatWidget() {
   const [isMinimized, setIsMinimized] = useState(false)
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [inputValue, setInputValue] = useState("")
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const sendMessage = () => {
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  const sendMessage = async () => {
     if (!inputValue.trim()) return
 
     const userMessage: Message = {
@@ -41,39 +50,92 @@ export function AIChatWidget() {
       timestamp: new Date(),
     }
 
-    setMessages([...messages, userMessage])
+    setMessages((prev) => [...prev, userMessage])
+    const userText = inputValue
     setInputValue("")
 
-    setTimeout(() => {
-      const aiResponse: Message = {
+    try {
+      const res = await fetch(
+        "https://cobuild.addisassistant.com/webhook-test/e029166c-c5c7-4cd9-bc7c-3e427d4837f3",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: userText }),
+        }
+      )
+
+      const data = await res.json()
+
+      const aiMessage: Message = {
         id: messages.length + 2,
-        text: "Thank you for your message. I'm processing your request and will assist you shortly.",
+        text: data.response_text || "No response received from n8n.",
         sender: "ai",
         timestamp: new Date(),
       }
-      setMessages((prev) => [...prev, aiResponse])
-    }, 1000)
+
+      setMessages((prev) => [...prev, aiMessage])
+    } catch (err) {
+      console.error(err)
+
+      const errorMessage: Message = {
+        id: messages.length + 2,
+        text: "Something went wrong talking to the AI backend.",
+        sender: "ai",
+        timestamp: new Date(),
+      }
+
+      setMessages((prev) => [...prev, errorMessage])
+    }
   }
 
-  const handleQuickAction = (action: string) => {
+
+  const handleQuickAction = async (action: string) => {
     const userMessage: Message = {
       id: messages.length + 1,
       text: action,
       sender: "user",
       timestamp: new Date(),
     }
-    setMessages([...messages, userMessage])
 
-    setTimeout(() => {
-      const aiResponse: Message = {
+    setMessages((prev) => [...prev, userMessage])
+
+    try {
+      const res = await fetch(
+        "https://cobuild.addisassistant.com/webhook-test/e029166c-c5c7-4cd9-bc7c-3e427d4837f3",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: action }),
+        }
+      )
+
+      const data = await res.json()
+
+      const aiMessage: Message = {
         id: messages.length + 2,
-        text: `I'll help you with "${action}". Let me gather the information for you.`,
+        text: data.response_text || "No response received.",
         sender: "ai",
         timestamp: new Date(),
       }
-      setMessages((prev) => [...prev, aiResponse])
-    }, 1000)
+
+      setMessages((prev) => [...prev, aiMessage])
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: messages.length + 2,
+          text: "Backend error.",
+          sender: "ai",
+          timestamp: new Date(),
+        },
+      ])
+    }
   }
+
 
   if (!isOpen) {
     return (
@@ -142,6 +204,7 @@ export function AIChatWidget() {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           {messages.length === 1 && (
